@@ -1,9 +1,14 @@
 class Solution {
 public:
-    int fib(int n) {
-        //Base Case
-        if(n<=1)
+int fibon(int n, vector<int>&dp){
+    //Base Case
+    if(n<=1)
         return n;
-        return fib(n-1) + fib(n-2);
+        return fibon(n-1,dp)+fibon(n-2,dp);
+}
+    //Memoization
+    int fib(int n) {
+        vector<int> dp(n+1,-1);
+        return fibon(n,dp);
     }
 };
