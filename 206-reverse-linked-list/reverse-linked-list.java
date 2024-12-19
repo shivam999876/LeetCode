@@ -10,7 +10,6 @@
  */
 class Solution {
     public ListNode reverseList(ListNode head) {
-         // Base Case
         if (head == null || head.next == null) {
             return head;
         }
