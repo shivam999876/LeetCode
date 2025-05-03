@@ -1,31 +1,26 @@
 class Solution {
-    private int helper(int[] tops, int[] bottoms, int val) {
-        int top_res = 0, bottom_res = 0;
-        for (int i = 0; i < tops.length; i++) {
-            if (tops[i] != val && bottoms[i] != val) {
-                return -1;
-            } else if (tops[i] != val) {
-                top_res++;
-            } else if (bottoms[i] != val) {
-                bottom_res++;
-            }
-        }
-        return Math.min(top_res, bottom_res);
-    }
-
-
-
     public int minDominoRotations(int[] tops, int[] bottoms) {
+        int count1 = solve(tops, bottoms, tops[0]);
+        if(count1 != -1)
+            return count1;
+        return solve(tops, bottoms, bottoms[0]);
         
-        
-        int ans = -1;
-        for (int i = 1; i < 7; i++) {
-            int cur_ans = helper(tops, bottoms, i);
+    }
+    int solve(int[] tops, int[] bottoms, int target){
+        int flipTop = 0;
+        int flipBottom = 0;
+        int n = tops.length;
 
-            if (cur_ans != -1 && (ans == -1 || ans > cur_ans)) {
-                ans = cur_ans;
+        for(int i=0;i<n;i++){
+            if(tops[i] != target && bottoms[i] != target)
+                return -1;
+            else if(tops[i] != target){
+                flipTop++;
+            }else if(bottoms[i] != target){
+                flipBottom++;
             }
         }
-        return ans;
+        int res = Math.min(flipTop, flipBottom);
+        return res;
     }
 }
