@@ -1,2 +1,2 @@
 # LeetCode
-This Repository is created for code of LeetCode.
+Welcome to my Leet-Code repository | Leetcode-POTD
