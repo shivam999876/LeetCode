@@ -1,59 +1,56 @@
-class Solution { 
-    public boolean isSafe(char[][] board, int row, int col, int number) { 
-        //column 
-        for(int i=0; i<board.length; i++) {
-            if(board[i][col] == (char)(number+'0')) { 
-                return false;
-            } 
-        } 
-        //row
-        for(int j=0; j<board.length; j++) { 
-            if(board[row][j] == (char)(number+'0')) { 
-                return false;
-            } 
-        } 
-        //grid 
-        int sr = 3 * (row/3); 
-        int sc = 3 * (col/3); 
-        for(int i=sr; i<sr+3; i++) { 
-            for(int j=sc; j<sc+3; j++) { 
-                if(board[i][j] == (char)(number+'0')) { 
-                    return false; 
-                } 
-            } 
-        }    
-    return true; 
-    } 
-    public boolean helper(char[][]board,int row,int col) { 
-        if(row ==board.length) { 
-            return true; 
-        } 
-        int nrow=0; 
-        int ncol=0;
-        if(col ==board.length-1) { 
-            nrow = row +1; ncol =0; 
-        }
-        else{ 
-            nrow = row; ncol = col +1; 
-            } 
-        if(board[row][col] !='.') { 
-            if(helper(board, nrow, ncol)) { 
-                return true; 
-            } 
-        }else{ 
-            //fill the place
-            for(int i=1; i<=9; i++) { 
-                if(isSafe(board, row, col, i)) { 
-                    board[row][col] = (char)(i+'0');
-                    if(helper(board, nrow, ncol))
-                        return true; 
-                    else board[row][col] ='.';
-                } 
-            } 
-        } 
-    return false;
-    } 
-    public void solveSudoku(char[][]board) { 
-        helper(board,0,0); 
+class Solution {
+    int n = 3;
+    int N = n * n;
+    int[][] rows = new int[N][N + 1];
+    int[][] columns = new int[N][N + 1];
+    int[][] boxes = new int[N][N + 1];
+    char[][] board;
+    boolean sudokuSolved = false;
+
+    public boolean couldPlace(int d, int row, int col) {
+        int idx = (row / n) * n + col / n;
+        return rows[row][d] + columns[col][d] + boxes[idx][d] == 0;
+    }
+
+    public void placeNumber(int d, int row, int col) {
+        int idx = (row / n) * n + col / n;
+        rows[row][d]++;
+        columns[col][d]++;
+        boxes[idx][d]++;
+        board[row][col] = (char)(d + '0');
+    }
+
+    public void removeNumber(int d, int row, int col) {
+        int idx = (row / n) * n + col / n;
+        rows[row][d]--;
+        columns[col][d]--;
+        boxes[idx][d]--;
+        board[row][col] = '.';
+    }
+
+    public void placeNextNumbers(int row, int col) {
+        if (row == N - 1 && col == N - 1) sudokuSolved = true;
+        else if (col == N - 1) backtrack(row + 1, 0);
+        else backtrack(row, col + 1);
+    }
+
+    public void backtrack(int row, int col) {
+        if (board[row][col] == '.') {
+            for (int d = 1; d <= 9; d++) {
+                if (couldPlace(d, row, col)) {
+                    placeNumber(d, row, col);
+                    placeNextNumbers(row, col);
+                    if (!sudokuSolved) removeNumber(d, row, col);
+                }
+            }
+        } else placeNextNumbers(row, col);
+    }
+
+    public void solveSudoku(char[][] board) {
+        this.board = board;
+        for (int i = 0; i < N; i++)
+            for (int j = 0; j < N; j++)
+                if (board[i][j] != '.') placeNumber(Character.getNumericValue(board[i][j]), i, j);
+        backtrack(0, 0);
     }
 }
