@@ -1,4 +1,3 @@
-import java.util.StringTokenizer;
 class Solution {
     public int compareVersion(String version1, String version2) {
         List<String> v1 = getTokens(version1);
@@ -23,10 +22,10 @@ class Solution {
     }
     
     private List<String> getTokens(String version) {
-        StringTokenizer tokenizer = new StringTokenizer(version, ".");
+        String[] tokens = version.split("\\.");
         List<String> versionTokens = new ArrayList<>();
-        while (tokenizer.hasMoreTokens()) {
-            versionTokens.add(tokenizer.nextToken());
+        for (String token : tokens) {
+            versionTokens.add(token);
         }
         return versionTokens;
     }
