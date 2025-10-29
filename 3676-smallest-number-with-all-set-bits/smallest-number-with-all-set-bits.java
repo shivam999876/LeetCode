@@ -1,12 +1,8 @@
-class Solution {     
-    boolean isAllBitsSet(int x) {         
-        return (x & (x + 1)) == 0;     
-    }     
-
+class Solution {        
     public int smallestNumber(int n) {         
-        int result = n;         
-        while (!isAllBitsSet(result)) {             
-            result++;         
+        int result = 1;         
+        while (result < n) {             
+            result = 2 * result + 1;         
         }         
         return result;     
     } 
