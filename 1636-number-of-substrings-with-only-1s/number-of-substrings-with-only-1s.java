@@ -1,21 +1,16 @@
 class Solution {
+    static final int M = 1_000_000_007;
     public int numSub(String s) {
-        int mod = 1000000007;
-        long count = 0;
-        long ans = 0;
-        for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == '1') {
-                count++;
-            } else {
-                long add = (count * (count + 1) / 2);
-                add = add % mod;
-                ans = (ans + add) % mod;
-                count = 0;
+        long result = 0;
+        long count1 = 0;
+        for(char ch : s.toCharArray()){
+            if(ch == '1'){
+                count1++;
+                result = (result + count1) % M; 
+            }else{
+                count1 = 0;
             }
         }
-        long add = (count * (count + 1)) / 2;
-        add = add % mod;
-        ans = (ans + add) % mod;
-        return (int) ans;
+        return (int) result;
     }
 }
