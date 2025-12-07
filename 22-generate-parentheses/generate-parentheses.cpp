@@ -1,18 +1,27 @@
 class Solution {
 public:
-    vector<string> generateParenthesis(int n) {
-        vector<string> out;
-        int l=0,r=0;
-        f(out, "",l,r,n);
-        return out;
+    vector<string> valid;
+    void generate(string &s, int open, int close){
+        if(open == 0 && close == 0){
+		valid.push_back(s);
+		return;
+	}
+	if(open > 0){
+		s.push_back('(');
+		generate(s, open - 1, close);
+		s.pop_back();
+	}
+	if(close > 0){
+		if(open < close){
+			s.push_back(')');
+			generate(s, open, close - 1);
+			s.pop_back();
     }
-    void f(vector<string>&out, string s,int l, int r,int n){
-        if(l+r==n*2) out.push_back(s);
-        else{
-            if(l<n) f(out,s+"(",l+1,r,n);
-            if(r<l) f(out,s+")",l,r+1,n);
-        }
-        return;
     }
-
+    }
+     vector<string> generateParenthesis(int n) {
+        string s;
+        generate(s, n, n);
+        return valid;
+     }
 };
