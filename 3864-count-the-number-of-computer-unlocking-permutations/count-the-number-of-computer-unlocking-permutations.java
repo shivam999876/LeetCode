@@ -1,15 +1,17 @@
 class Solution {
-    static final int MOD = 1_000_000_007;
-    public int countPermutations(int[] comp) {
-        int n = comp.length;
-        int first = comp[0];
-        for(int i = 1; i < n; i++){
-            if(comp[i] <= first) return 0;
+    static final int M = 1000000007;
+
+    public int countPermutations(int[] complexity) {
+        int n = complexity.length;
+        long result = 1;
+
+        for (int i = 1; i < n; i++) {
+            if (complexity[i] <= complexity[0]) {
+                return 0;
+            }
+            result = (result * i) % M;
         }
-        long fact = 1;
-        for(int i = 2; i < n; i++){
-            fact = (fact * i) % MOD;
-        }
-        return (int) fact;
+
+        return (int) result;
     }
 }
