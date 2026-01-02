@@ -1,10 +1,10 @@
 class Solution {
     public int repeatedNTimes(int[] nums) {
-        Set<Integer> set = new HashSet<>();
+        int[] freq = new int[10001];
         for(int num : nums){
-            if(set.contains(num))
-                return num;
-                set.add(num);
+            freq[num]++;
+            if(freq[num] > 1)
+            return num;
         }
         return -1;
     }
