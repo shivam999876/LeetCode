@@ -7,7 +7,6 @@ class Solution {
         int count1 = 0;
         int count2 = 0;
         
-        // Phase 1: Find candidates
         for (int num : nums) {
             if (num == candidate1) {
                 count1++;
@@ -25,7 +24,6 @@ class Solution {
             }
         }
         
-        // Phase 2: Count occurrences of candidates
         count1 = 0;
         count2 = 0;
         
@@ -37,7 +35,6 @@ class Solution {
             }
         }
         
-        // Check if candidates appear more than n/3 times and add them to the result
         if (count1 > nums.length / 3) {
             result.add(candidate1);
         }
