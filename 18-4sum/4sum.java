@@ -10,7 +10,6 @@ class Solution {
                     newtarget -= nums[i];
                     newtarget -= nums[j];
                     newtarget -= nums[k];
-                    // Binary search to find element newtarget in nums from k + 1 to n
                     int low = k + 1;
                     int high = n - 1;
                     while (low <= high) {
