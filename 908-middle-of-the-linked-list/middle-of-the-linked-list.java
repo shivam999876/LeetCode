@@ -10,18 +10,13 @@
  */
 class Solution {
     public ListNode middleNode(ListNode head) {
-        int count = 0;
-        ListNode current = head;
-        //First pass to count the number of nodes
-        while(current != null){
-            count++;
-            current = current.next;
+        ListNode slow = head;
+        ListNode fast = head;
+        //Move slow by i and fast by 2 steps
+        while(fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
         }
-        //Second pass to find the middle node
-        current = head;
-        for(int i = 0; i < count / 2; i++){
-            current = current.next;
-        }
-        return current;//This will be the middle node
+        return slow;
     }
 }
