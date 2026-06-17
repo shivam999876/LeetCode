@@ -11,11 +11,11 @@ class Solution {
             }
             return;
         }
-        if(candidates[index]<=target){  //PICKED AN ELEMENT
+        if(candidates[index]<=target){  
             ds.add(candidates[index]);
             findCombinations(index,candidates,target-candidates[index],ans,ds);
             ds.remove(ds.size()-1);
         }
-        findCombinations(index+1,candidates,target,ans,ds);     //NOT PICKED AN ELEMENT
+        findCombinations(index+1,candidates,target,ans,ds);
     }
 }
