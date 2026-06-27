@@ -10,8 +10,6 @@ class Solution {
 
             }
             stack.push(i);
-
-
         }
         int i = heights.length;
         while(!stack.isEmpty()){
